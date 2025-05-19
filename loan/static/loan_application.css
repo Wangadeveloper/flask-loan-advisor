@@ -1,0 +1,37 @@
+body{
+margin: 0;
+padding: 0;
+background-color: coral;
+position: relative;
+}
+
+#header{
+    color:brown;
+    margin-left: 25%;
+}
+
+.contain{
+position: absolute;
+top: 50px;
+min-height: 100%;
+width: 100%;
+}
+form{
+    width: 100%;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+}
+
+form h2{
+    margin-inline-start: 20px;
+}
+
+#description{
+    margin-left: 5%;
+    top: 20px;
+}

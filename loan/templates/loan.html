@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}login{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='loan_application.css')}}">
+{% endblock %}
+{% block body %}
+<div class="contain">
+<h1 id="description">Please fill in the form provided below then make sure to read the financial literacy after submission which helps you to borrow wisely</h1></li> 
+<div class="container">
+  <h1 id="header"><u>loan form</u></h1>
+    <form action="" method="post">
+        {{form.hidden_tag()}}
+     <h2>first name
+     {{form.first_name()}}</h2>
+     <h2>middle name
+     {{form.middle_name()}}</h2>
+     <h2>sir name
+     {{form.sir_name()}}</h2>
+     <h2>enter your identification number/passport number
+     {{form.id_no()}}</h2>
+     <h2>enter your monthly income
+      {{form.income()}}</h2>
+     <h2>enter your county of birth
+     {{form.county()}}
+     </h2>
+     <h2>
+     enter sub-county
+     {{form.sub_county()}}</h2>
+     <h2>enter location
+     {{form.location()}}
+     </h2>
+     <h2>
+     enter sub-location
+     {{form.sub_location()}}</h2>
+     <h2>date of birth
+      {{form.date()}}
+      </h2>
+      <h2>
+      choose your gender
+      {{form.gender()}}</h2>
+      <h2>upload your identification card
+      {{form.upload_id()}}</h2>
+      <h2>choose loan type
+      {{form.loan_type()}}
+      </h2>
+      <h2>
+      choose your level of bussiness
+      {{form.bussiness_type()}}</h2>
+      <h2>{{form.submit()}}</h2>
+    </form>
+ </div>
+</div>
+{% endblock %}

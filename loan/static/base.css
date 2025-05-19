@@ -1,0 +1,23 @@
+body{
+    padding: 0;
+    margin: 0;
+    background-color: bisque;
+}
+
+.header{
+    position: absolute;
+    top: 0px;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+    background-color: aqua;
+    color: blue;
+}
+
+.header a{
+    padding-left: 2px;
+    margin-left: 200px;
+    font-size: 30px;
+}

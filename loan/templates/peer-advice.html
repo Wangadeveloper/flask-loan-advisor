@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='peer-advice.css')}}"d>
+    <script>
+        // Dummy message storage (to be replaced with a backend service)
+        let messages = [];
+
+        // Grabbing the current user's username
+        const currentUsername = "{{ current_user.username }}";
+
+        function postMessage() {
+            const username = currentUsername; // Automatically use the current user's username
+            const message = document.getElementById('message').value.trim();
+
+            if (!message) {
+                alert('Please enter a message.');
+                return;
+            }
+
+            // Add the message to the array
+            messages.push({ username, message, timestamp: new Date().toLocaleString() });
+
+            // Clear the input field
+            document.getElementById('message').value = '';
+
+            // Update the displayed messages
+            renderMessages();
+        }
+
+        function renderMessages() {
+            const messageList = document.getElementById('message-list');
+            messageList.innerHTML = '';
+
+            if (messages.length === 0) {
+                messageList.innerHTML = '<p>No messages yet. Be the first to share your advice or story!</p>';
+            } else {
+                messages.forEach((msg) => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'message';
+                    messageDiv.innerHTML = `
+                        <h3>${msg.username} <small style="color: #999;">(${msg.timestamp})</small></h3>
+                        <p>${msg.message}</p>
+                    `;
+                    messageList.appendChild(messageDiv);
+                });
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Peer-to-Peer Advice</h1>
+
+    <!-- Video Section -->
+    <div class="video-section">
+        <h2>See How Others Succeeded</h2>
+        <video src="{{url_for('static', filename='lending.mp4')}}" type="video/mp4" controls>
+        </video>
+    </div>
+
+    <!-- Message Form -->
+    <div class="message-form">
+        <h2>Share Your Advice or Ask a Question</h2>
+        <label for="message">Your Message</label>
+        <textarea id="message" rows="4" placeholder="Ask a question or share advice"></textarea>
+        <button onclick="postMessage()">Post Message</button>
+    </div>
+
+    <!-- Community Messages -->
+    <div class="messages">
+        <h2>Community Messages</h2>
+        <div id="message-list"></div>
+    </div>
+</div>
+{% endblock %}

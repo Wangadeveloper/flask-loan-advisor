@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='login.css')}}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+    <div>
+        {% for category, message in messages %}
+        <div class="alert alert-{{category}}">{{message}}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <h1>Login</h1>
+    <form action="" method="post">
+        {{form.hidden_tag()}}
+
+        <label for="email">Email Address</label>
+        {{form.email()}}
+
+        <label for="password">Password</label>
+        {{form.password()}}
+
+        {{form.submit(class_='btn')}}
+
+        <p>Don't have an account? <a href="{{url_for('main.register')}}">Click here</a> to register.</p>
+    </form>
+</div>
+{% endblock %}

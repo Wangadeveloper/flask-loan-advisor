@@ -1,0 +1,37 @@
+{% block head %}
+{% block title %}<title>loan application</title> {% endblock %}
+<link rel="stylesheet" href="{{url_for('static',filename='account.css')}}">
+
+{% endblock %}
+
+{% block body %}
+<div class="navbar">
+    <h1>User Dashboard</h1>
+    <a href="{{url_for('main.logout')}}">Logout</a>
+</div>
+<div class="container">
+    <h2>Welcome, {{current_user.username}}!</h2>
+    <p>Select an option below to get started:</p>
+
+    <div class="card">
+        <h3><a href="{{url_for('main.loan_risk_assessment')}}">Loan Risk Assessment</a></h3>
+        <p>Analyze your financial data and get loan recommendations.</p>
+    </div>
+    <div class="card">
+        <h3><a href="{{url_for('main.credit_risk_dashboard')}}">your credit_risk_dashboard</a></h3>
+        <p>your financial performance over the previous months and how they might affect you loan elligibility.</p>
+    </div>
+    <div class="card">
+        <h3><a href="{{url_for('main.peer_to_peer_advice')}}">Peer-to-Peer Advice</a></h3>
+        <p>Connect with other borrowers and share experiences.</p>
+    </div>
+    <div class="card">
+        <h3><a href="{{url_for('main.finalize_loan_application')}}">Submit Loan Application</a></h3>
+        <p>Finalize and submit your loan application.</p>
+    </div>
+    <div class="card">
+        <h3><a href="{{url_for('main.post_loan_monitoring')}}">Post-Loan Monitoring</a></h3>
+        <p>Track your loan usage and repayment progress.</p>
+    </div>
+</div>
+{% endblock %}

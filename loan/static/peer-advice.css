@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #0056b3;
+    text-align: center;
+}
+
+.video-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.video-section video {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.message-form {
+    margin-bottom: 20px;
+}
+
+.message-form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+.message-form input, .message-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.message-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #0056b3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.message-form button:hover {
+    background: #004494;
+}
+
+.messages {
+    margin-top: 20px;
+}
+
+.messages .message {
+    background: #f1f1f1;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-left: 5px solid #0056b3;
+}
+
+.messages .message h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #0056b3;
+}
+
+.messages .message p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #555;
+}

@@ -1,0 +1,53 @@
+{% block head %}
+{% block title %}{% endblock %}
+<link rel="stylesheet" href="{{url_for('static',filename='post-loan-monitoring.css')}}">
+<script>
+    function simulateRepaymentProgress() {
+        const progressBar = document.querySelector('.progress');
+        const newWidth = Math.min(parseInt(progressBar.style.width) + 10, 100) + '%';
+        progressBar.style.width = newWidth;
+        progressBar.textContent = newWidth;
+
+        if (newWidth === '100%') {
+            alert('Congratulations! Your loan is fully repaid.');
+        }
+    }
+</script>
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <h1>Post-Loan Monitoring</h1>
+    
+    <!-- Loan Repayment Progress -->
+    <div class="repayment-summary">
+        <h3>Repayment Progress</h3>
+        <div class="progress-bar">
+            <div class="progress" style="width: 60%;">60%</div> <!-- Dynamically set width -->
+        </div>
+        <p><strong>Total Loan Amount:</strong> KES 500,000</p>
+        <p><strong>Repaid Amount:</strong> KES 300,000</p>
+        <p><strong>Remaining Balance:</strong> KES 200,000</p>
+    </div>
+
+    <!-- Personalized Financial Advice -->
+    <div class="advice-section">
+        <h3>Financial Advice</h3>
+        <p><strong>Tip:</strong> Allocate 30% of your business profits to accelerate loan repayment and reduce interest burden.</p>
+        <p><strong>Reminder:</strong> Next repayment due on <strong>15th February 2025</strong>.</p>
+    </div>
+
+    <!-- Simulate Repayment Button -->
+    <button onclick="simulateRepaymentProgress()">Simulate Repayment</button>
+
+    <!-- Automated Alerts -->
+    <div class="advice-section">
+        <h3>Alerts and Notifications</h3>
+        <p><strong>Upcoming Due Date:</strong> KES 50,000 repayment on <strong>15th February 2025</strong>.</p>
+        <p><strong>Alert:</strong> Missed payments will result in a penalty of KES 5,000.</p>
+    </div>
+</div>
+{% endblock %}
+
+

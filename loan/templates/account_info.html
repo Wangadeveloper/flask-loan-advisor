@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Account{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static', filename='account_info.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='drop.css')}}">
+{% endblock %}
+
+{% block body %}
+<div class="we-bar">
+    <a href="{{url_for('main.home')}}">Home</a>
+    <a id="logout" href="{{url_for('main.logout')}}">Logout</a>
+</div>
+
+<div class="container">
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+    <div>
+        {% for category, message in messages %}
+        <div class="alert alert-{{category}}">{{message}}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="upper-sec">
+        <img src="{{url_for('static', filename='bank.png')}}" alt="my_profile_pic">
+        <h2>
+            Welcome, {{ current_user.username }}! <br>
+            Thank you for your continual trust in our services.<br>
+            We are glad that you have chosen us as your preferred financial institution <br>
+            click <a href="{{url_for('main.profile')}}">here</a> to upfate your profile information.
+        </h2>
+    </div>
+
+    <div class="middle">
+        <div class="middle1">
+            <h1><u>Personal Information</u></h1>
+            <span>Name: {{ current_user.full_names }}</span>
+            <span>Email: {{ current_user.email }}</span>
+            <span>Phone no: {{ current_user.phone_no }}</span>
+            <span>Country: {{ current_user.country }}</span>
+            <span>Location: {{ current_user.location }}</span>
+        </div>
+        <div class="middle2">
+            <h1><u>Account Info</u></h1>
+            <span>Account balance: Ksh.2000</span>
+        </div>
+        <div class="middle3">
+            <span>
+                Dear customer, do not share your bank information with anyone. If you feel suspicious about anything, call for help. 
+                <a href="#">View customer help contacts</a>
+            </span>
+            <span>
+                <h2><u><b>Services</b></u></h2>
+                <ul>
+                    <li><a href="{{url_for('main.account')}}">Loan application</a></li>
+                    <li><a href="#">Deposit</a></li>
+                    <li><a href="#">Withdrawals</a></li>
+                    <li><a href="#">Global transactions</a></li>
+                </ul>
+            </span>
+        </div>
+    </div>
+</div>
+{% endblock %}
