@@ -1,20 +1,30 @@
-# loan/gemini_engine.py
 import os
-import google.generativeai as genai
-from flask import current_app
-import google.genai as gemini
-from google.genai import types
-import PyPDF2
 from io import BytesIO
+from PIL import Image
+import google.generativeai as genai
+from fpdf import FPDF
+from flask import current_app
 
-generation_config = {
-    "temperature": 0.3,
-    "top_p": 0.95,
-    "top_k": 64,
-    "max_output_tokens": 8192,
-    "response_mime_type": "text/plain",
-}
+def generate_pdf(content: str, title: str = "AI Advice") -> BytesIO:
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", style="B", size=16)
+    pdf.cell(0, 10, title, ln=True, align="C")
+    pdf.ln(10)
 
+    pdf.set_font("Arial", size=12)
+    # Strip or replace emojis (non-ASCII chars)
+    cleaned_content = content.encode("ascii", "ignore").decode()
+    pdf.multi_cell(0, 8, cleaned_content)
+
+    pdf_output = BytesIO()
+    pdf_output.write(pdf.output(dest="S").encode("latin1", errors="replace"))
+    pdf_output.seek(0)
+    return pdf_output
+
+
+
+# ✅ Configure Gemini safely inside request context
 def get_model(model_name="gemini-1.5-flash"):
     # Get API key from Flask config or fallback to environment variable
     api_key = current_app.config.get("GOOGLE_API_KEY") or os.getenv("GOOGLE_API_KEY")
@@ -35,47 +45,43 @@ def get_model(model_name="gemini-1.5-flash"):
     return genai.GenerativeModel(model_name=model_name, generation_config=generation_config)
 
 
-def analyze_pdf(file, query):
-    filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], file.filename)
-    file.save(filepath)
-
-    model = configure_gemini()
+# 🔹 Financial Advice (return TEXT, not PDF)
+def get_financial_advice(farm_data: str) -> str:
     try:
-        with open(filepath, 'rb') as pdf_file:
-            reader = PyPDF2.PdfReader(pdf_file)
-            text = ""
-            for page_num in range(len(reader.pages)):
-                page = reader.pages[page_num]
-                text += page.extract_text()
+        prompt = f"""
+        You are an agricultural financial advisor.
+        Given this farm situation:
+        {farm_data}
+
+        Provide simple, clear advice on:
+        - Revenue optimization
+        - Investment opportunities
+        - Risk management
+        """
+        model = get_model("gemini-2.5-flash")
+        response = model.generate_content(prompt)
+        return response.text.strip()
     except Exception as e:
-        return f"Error reading PDF: {e}"
+        return f"Error generating financial advice: {str(e)}"
 
-    response = model.generate_content([text, "\n\n", query])
-    return response.text
 
-def chat_with_gemini():
-    instruction="""you are a helpful chatbot help answer users questions """
-    client = gemini.Client(api_key=current_app.config['GOOGLE_API_KEY'])
-    chat = client.chats.create(
-    model= get_model("gemini-1.5-flash"),
-    config=types.GenerateContentConfig(
-        system_instruction=instruction,
-        ))
-    return chat
-
-def extract_pdf_text(pdf_path):
-    text = ""
+# 🔹 Translation (return TEXT, not PDF)
+def translate_advice(advice: str, target_lang: str = "sw") -> str:
     try:
-        with open(pdf_path, 'rb') as pdf_file:
-            reader = PyPDF2.PdfReader(pdf_file)
-            for page_num in range(len(reader.pages)):
-                page = reader.pages[page_num]
-                text += page.extract_text()
+        prompt = f"""
+        Translate the following farming advisory into {target_lang}.
+        Keep the meaning clear and simple for farmers.
+
+        Text:
+        {advice}
+        """
+        model = get_model("gemini-2.5-flash")
+        response = model.generate_content(prompt)
+        return response.text.strip()
     except Exception as e:
-        return f"Error extracting text from PDF: {e}"
-    return text
+        return f"Error translating advice: {str(e)}"
 
-
+    
 import pandas as pd
 import pdfplumber
 #import csv

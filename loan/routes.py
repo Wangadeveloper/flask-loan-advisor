@@ -61,18 +61,9 @@ def logout():
     flash('Logged out successfully!', 'success')
     return redirect(url_for('main.login')) # Use blueprint name
 
-def generate_pdf(content: str) -> BytesIO:
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font('Arial', size=14)
+from fpdf import FPDF
+from io import BytesIO
 
-    cleaned_content = content.replace('\u2013', '-')
-    pdf.multi_cell(0, 5, cleaned_content)
-
-    pdf_output = BytesIO()
-    pdf_output.write(pdf.output(dest='S').encode('latin1', errors='replace'))
-    pdf_output.seek(0)
-    return pdf_output
 
 @main.route('/user_account')
 @login_required
@@ -109,6 +100,7 @@ def profile():
         return redirect(url_for("main.user_account")) # Use blueprint name
     return render_template("profile.html", form=form)
 
+
 @main.route("/loan-risk-assessment", methods=["GET", "POST"])
 @login_required
 def loan_risk_assessment():
@@ -124,13 +116,28 @@ def loan_risk_assessment():
                     based on the given information
                     recommend on how to invest on this loan,if the description of my business
                     is :{form.business_desc.data}"""
+         # Use Gemini model directly to get English text
+        eng_text = get_financial_advice(query)
 
-        formatted_response = chat_with_gemini().send_message(query).text
-        formatted_response=re.sub(r'\*+','\n',formatted_response)
-        pdf_output = generate_pdf(formatted_response)
+        # Translate English advice to Swahili
+        sw_text = translate_advice(eng_text)
+
+        # Merge both advices into one PDF
+        combined_text = f"""
+        📊 Financial Advice Report
+
+        --- English Version ---
+        {eng_text}
+
+        --- Swahili Version ---
+        {sw_text}
+        """
+        pdf_output = generate_pdf(combined_text, title="Financial Advice Report")
+
+        # Stream PDF to browser
         response = make_response(pdf_output.read())
-        response.headers['Content-Type'] = 'application/pdf'
-        response.headers['Content-Disposition'] = 'inline;filename="loan_advice.pdf"'
+        response.headers["Content-Type"] = "application/pdf"
+        response.headers["Content-Disposition"] = 'inline; filename="financial_advice.pdf"'
         return response
     return render_template("loan-risk-assessment.html", form=form)
 
