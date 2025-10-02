@@ -1,0 +1,54 @@
+{% block head %}
+{% block title %}{% endblock %}
+<link rel="stylesheet" href="{{url_for('static',filename='loan-application.css')}}">
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <h1>Finalize and Submit</h1>
+    <h2>Review Your Loan Application</h2>
+    
+    <!-- Section to review details -->
+    <div class="review-section">
+        <h3>Personal Details</h3>
+        <p><strong>Name:</strong> [User's Name]</p>
+        <p><strong>Email:</strong> [User's Email]</p>
+        <p><strong>Monthly Income:</strong> [User's Income]</p>
+    </div>
+    <div class="review-section">
+        <h3>Business Details</h3>
+        <p><strong>Business Type:</strong> [Business Type]</p>
+        <p><strong>Business Level:</strong> [Business Level]</p>
+        <p><strong>Business Description:</strong> [Business Description]</p>
+    </div>
+    <div class="review-section">
+        <h3>Loan Details</h3>
+        <p><strong>Desired Loan Amount:</strong> [Loan Amount]</p>
+        <p><strong>Repayment Period:</strong> [Repayment Period]</p>
+        <p><strong>Risk Tolerance:</strong> [Risk Tolerance]</p>
+    </div>
+    
+    <!-- Confirmation and submission -->
+    <div class="buttons">
+        <button onclick="goBack()">Edit Details</button>
+        <button onclick="submitApplication()">Submit Application</button>
+    </div>
+</div>
+
+<script>
+    // Go back to edit the details
+    function goBack() {
+        alert('Redirecting to the previous page for edits.');
+        window.history.back(); // Navigates back to the previous page
+    }
+
+    // Submit the application
+    function submitApplication() {
+        // Add submission logic here (e.g., sending data to the server)
+        alert('Your loan application has been submitted successfully!');
+        // Redirect to a confirmation or thank-you page
+        window.location.href = "confirmation.html";
+    }
+</script>
+{% endblock %}

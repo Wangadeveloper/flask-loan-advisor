@@ -1,0 +1,39 @@
+{% block head %}
+{% block title %}{% endblock %}
+<link rel="stylesheet" href="{{url_for('static',filename='profile.css')}}">
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <h1>Fill your Profile Info</h1>
+    <form action="" method="POST">
+        {{form.hidden_tag()}}
+        <label for="name">Full Name</label>
+        {{form.full_names()}}
+    
+        <label for="email">Email</label>
+        {{form.email()}}
+        
+        <label for="income">Monthly Income (in KES)</label>
+        {{form.monthly_income()}}
+        
+        <label for="business-type">Business Type</label>
+        {{form.business_type()}}
+        
+        <label for="business-level">Business Level</label>
+        {{form.business_level()}}
+        
+        <label>Phone number</label>
+        {{form.phone()}}
+
+        <label>country</label>
+        {{form.country()}}
+
+        <label>location of residence</label>
+        {{form.location()}}
+        
+        {{form.submit()}}
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Risk Dashboard</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --danger: #e74c3c;
+            --light-bg: #f9f9f9;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        h1, h2 {
+            color: var(--primary);
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 15px 20px;
+            background: var(--primary);
+            color: white;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .stat-item h3 {
+            margin-top: 0;
+            color: var(--secondary);
+        }
+
+        .graph-container {
+            width: 100%;
+            height: 500px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        @media (max-width: 768px) {
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Credit Risk Dashboard</h1>
+        
+        <!-- Summary Statistics -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Key Metrics</h2>
+            </div>
+            <div class="card-body">
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <h3>Avg. Net Amount</h3>
+                        <p>{{ "%.2f"|format(summary_stats.avg_net_amount) }}</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Avg. Risk Score</h3>
+                        <p>{{ "%.2f"|format(summary_stats.avg_risk_score) }}</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Total Transactions</h3>
+                        <p>{{ summary_stats.total_transactions }}</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Highest Risk Month</h3>
+                        <p>{{ summary_stats.highest_risk_month }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Graphs -->
+        {% for graph in graphs %}
+            <div class="card">
+                <div class="card-body">
+                    <div class="graph-container">
+                        {{ graph | safe }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <!-- Raw Data Table -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Transaction Data</h2>
+            </div>
+            <div class="card-body">
+                {{ table_data | safe }}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple JavaScript for interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-5px)';
+                    card.style.transition = 'transform 0.2s ease';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'none';
+                });
+            });
+
+            // Make table rows highlight on hover
+            const tableRows = document.querySelectorAll('tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', () => {
+                    row.style.backgroundColor = '#e6f7ff';
+                });
+                row.addEventListener('mouseleave', () => {
+                    row.style.backgroundColor = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

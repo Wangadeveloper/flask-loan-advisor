@@ -1,0 +1,17 @@
+# Exported from Render on 2025-09-21T10:39:46Z
+version: "1"
+services:
+- type: web
+  name: farmer360
+  runtime: python
+  repo: https://github.com/Wangadeveloper/flask-loan-advisor
+  plan: free
+  envVars:
+  - key: GOOGLE_API_KEY1
+    sync: false
+  - key: GOOGLE_API_KEY
+    sync: false
+  region: frankfurt
+  buildCommand: pip install -r requirements.txt
+  startCommand: gunicorn "loan:create_app()"
+  autoDeployTrigger: commit

@@ -1,0 +1,33 @@
+{% block head %}
+{% block title %}{% endblock %}
+<link rel="stylesheet" href="{{url_for('static',filename='loan-risk-assessment.css')}}">
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <h1>Loan Risk Assessment</h1>
+    <form action="" method="POST">
+        {{form.hidden_tag()}}
+        <label>Desired Loan Amount (KES)</label>
+         {{form.loan_amount()}}
+        
+        <label>Monthly Income (KES)</label>
+        {{form.monthly_income()}}
+        
+        <label>Business Type</label>
+        {{form.business_type()}}
+        
+        <label>Business Level</label>
+        {{form.business_level()}}
+        
+        <label>Business description</label>
+        {{form.business_desc()}}
+
+        <label>Preferred Repayment Period (Months)</label>
+        {{form.repayment_period()}}        
+        {{form.submit()}}
+    </form>
+</div>
+{% endblock %}
+

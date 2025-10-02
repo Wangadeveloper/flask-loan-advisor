@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Virtual env
+.env/
+venv/
+ENV/
+
+# Flask instance
+instance/
+
+# Uploads
+app/static/uploads/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+*.env
+.env

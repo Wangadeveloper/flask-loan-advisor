@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload M-Pesa Statement</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_upload.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Your M-Pesa Statement</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <label for="statement">M-Pesa PDF:</label>
+            <input type="file" name="statement" required>
+
+            <label for="password">PDF Password:</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Analyze</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!-- result.html -->
+<h2>Loan Recommendation</h2>
+<ul>
+  <li>Recommended Loan: KES {{ rec['Recommended Loan'] }}</li>
+  <li>Monthly Repayment: KES {{ rec['Recommended Monthly Repayment'] }}</li>
+  <li>Term: {{ rec['Term'] }} months</li>
+  <li>High Risk: {{ rec['High Risk'] }}</li>
+  <li>Plan:
+    <ul>
+      {% for item, amount in rec['Investment Plan'].items() %}
+      <li>{{ item }}: KES {{ amount }}</li>
+      {% endfor %}
+    </ul>
+  </li>
+</ul>

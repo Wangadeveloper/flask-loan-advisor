@@ -1,0 +1,13 @@
+
+{% block head %}
+{% block title %}{% endblock %} - financial services
+{% endblock %}
+<link rel="stylesheet" href="{{url_for('static',filename='finalize-loan-application.css')}}">
+
+{% block body %}
+<h2>complete loan application by clicking submit button</h2>
+<form action="" method="post">
+    {{form.hidden_tag()}}
+    {{form.submit()}}
+</form>
+{% endblock %}

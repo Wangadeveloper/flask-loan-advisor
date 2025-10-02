@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}home{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='drop.css')}}">
+{% endblock %}
+
+{% block body %}
+<div class="web-bar">
+   <button class="menu-btn" onclick="toggleMenu()">MENU</button>
+    <div class="menu-content" id="menu-content">
+        <ul>
+            <li><a href="{{url_for('main.home')}}">home</a></li>
+            <li><a href="{{url_for('main.upload')}}">contact</a></li>
+            <li><a href="#">help</a></li>
+
+        </ul>
+    </div>
+    
+    <div class="links">
+        <a href="{{url_for('main.login')}}">Sign in</a>
+        <a href="{{url_for('main.register')}}">Sign up</a>
+    </div>
+
+</div>
+<div class="container">
+    <div class="mid-section">
+        <h1><u>WELCOME  TO  AFRICAS  LOCAL  COMMUNITIES FINANCIAL  SERVICES (ACFS)</u></h1>
+        <p id="sentence"> <b>Africa local community financial services is a community based financial institution in western part of Kenya,<br>
+        and its geared towards an effective way in which we can enhance financial literacy in kenya and help eleviate poverty, and at the <br>
+        same time upholding peoples living standards ,through offering diffrent kinds of loan ,savings and other banking services <br>
+        for those applying for loans please make sure to get a little bit of loan litteracy class from john as you will see when you proceed<br>
+        to loan application section</b></p>
+       
+    </div>
+    <div id="here">
+        <hr color="magenta" height>
+        <marquee id="marq" behavior="scroll" direction="left"><i>borrow wisely ,pay on time, uphold the community, change kenya! </i></marquee>
+    </div>
+    <div class="media">
+        <img id="b" src="{{url_for('static',filename='kenyan-farmer.jpg')}}" alt="pic">
+        <img id="a" src="{{url_for('static',filename='school_chilldren.jpg')}}" alt="pic">
+        <img id="c" src="{{url_for('static',filename='saving.jpg')}}" alt="pic">
+        <img id="d" src="{{url_for('static',filename='afri.png')}}" alt="pic">
+        
+    </div>
+    <h2 id="hint"><u>Just click on the service you want to be attended to<br></u><p>make sure to register and log in for more services</p></h2>
+    <div class="services">
+        <div class="kra">
+            <div id="l"><h2><u>LOANS</u></h2></div>
+            <ul>
+                <li><a href="{{url_for('main.login')}}">school fee loan</a></li>
+                <li><a href="{{url_for('main.login')}}">farmers loan</a></li>
+                <li><a href="{{url_for('main.login')}}">asset financing </a></li>
+                <li><a href="{{url_for('main.login')}}">bussiness loan</a></li>
+                <li><a href="{{url_for('main.login')}}">kick poverty loan</a></li>
+            </ul>
+        </div>
+
+        <div class="ntsa">
+            <div id="s"><h2><u>SAVINGS</u></h2></div>
+            <ul>
+            <li><a href="{{url_for('main.login')}}">Fixed account savings</a></li>
+            <li><a href="{{url_for('main.login')}}">Normal savings</a></li>
+            </ul>
+        </div>
+        
+        <div class="tsc">
+            <div id="b"><h2><u>BANKING SERVICES</u></h2></div>
+            <ul>
+                <li><a href="{{url_for('main.login')}}">Bankers cheque</a></li>
+                <li><a href="{{url_for('main.login')}}">cheque clearance</a></li>
+            
+            </ul>
+        </div>
+    </div>
+    
+</div>
+<script src="{{url_for('static',filename='script.js')}}"></script>
+{% endblock %}
