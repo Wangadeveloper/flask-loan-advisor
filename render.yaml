@@ -13,5 +13,5 @@ services:
     sync: false
   region: frankfurt
   buildCommand: pip install -r requirements.txt
-  startCommand: gunicorn "loan:create_app()"
+  startCommand: gunicorn "loan:create_app()" --timeout 120 --workers 1 --threads 2
   autoDeployTrigger: commit
