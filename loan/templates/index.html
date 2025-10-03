@@ -7,24 +7,18 @@
 {% endblock %}
 
 {% block body %}
-<div class="web-bar">
-   <button class="menu-btn" onclick="toggleMenu()">MENU</button>
-    <div class="menu-content" id="menu-content">
-        <ul>
-            <li><a href="{{url_for('main.home')}}">home</a></li>
-            <li><a href="{{url_for('main.upload')}}">contact</a></li>
-            <li><a href="#">help</a></li>
-
-        </ul>
+<div class="we-bar">
+    <div class="left-links">
+        <a href="{{url_for('main.home')}}" class="nav-link">🏠 Home</a>
+        <a href="{{url_for('main.upload')}}" class="nav-link">📩 Contact</a>
+        <a href="#" class="nav-link">❓ Help</a>
     </div>
-    
-    <div class="links">
-    <a href="{{url_for('main.login')}}" class="btn-auth">Sign in</a>
-    <a href="{{url_for('main.register')}}" class="btn-auth btn-signup">Sign up</a>
+    <div class="right-links">
+        <a href="{{url_for('main.login')}}" class="btn-auth">🔑 Sign in</a>
+        <a href="{{url_for('main.register')}}" class="btn-auth btn-signup">📝 Sign up</a>
     </div>
-
-
 </div>
+
 <div class="container">
     <div class="mid-section">
     <h1>Welcome to Africa’s Local Communities Financial Services (ACFS)</h1>

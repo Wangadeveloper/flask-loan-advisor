@@ -10,9 +10,14 @@
 
 {% block body %}
 <div class="we-bar">
-    <a href="{{url_for('main.home')}}">Home</a>
-    <a id="logout" href="{{url_for('main.logout')}}">Logout</a>
+    <div class="left-links">
+        <a href="{{url_for('main.home')}}" class="nav-link">🏠 Home</a>
+    </div>
+    <div class="right-links">
+        <a id="logout" href="{{url_for('main.logout')}}" class="btn-logout">🚪 Logout</a>
+    </div>
 </div>
+
 
 <div class="container">
     <!-- Flash Messages -->

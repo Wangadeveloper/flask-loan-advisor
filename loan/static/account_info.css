@@ -177,3 +177,51 @@ body {
         height: 80px;
     }
 }
+
+
+/* Stylish top bar */
+.we-bar {
+    background: linear-gradient(90deg, #007bff, #00b4d8); /* blue gradient */
+    padding: 12px 20px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Navigation links */
+.we-bar .nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.we-bar .nav-link:hover {
+    color: #ffd166; /* gold highlight */
+    transform: translateY(-2px);
+}
+
+/* Logout button */
+.btn-logout {
+    padding: 8px 18px;
+    background: #ef233c; /* red button */
+    color: #fff;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.btn-logout:hover {
+    background: #d90429; /* darker red on hover */
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
