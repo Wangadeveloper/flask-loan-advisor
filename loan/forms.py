@@ -42,7 +42,7 @@ class FinalizeLoanApplicationForm(FlaskForm):
 
 class RegistrationForm(FlaskForm):
     username=StringField('username',validators=[DataRequired(),Length(min=2,max=50)])
-    email=StringField('email',validators=[DataRequired(),Length(min=2,max=50)])
+    email=StringField('email',validators=[DataRequired(),Length(min=2,max=100)])
     password=PasswordField('password',validators=[DataRequired()])
     confirm_password=PasswordField('confirm password',validators=[DataRequired(),EqualTo('password')])
     submit=SubmitField('submit')
@@ -76,7 +76,7 @@ class UserProfileForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email=StringField('email',validators=[DataRequired(),Length(min=2,max=20)])
+    email=StringField('email',validators=[DataRequired(),Length(min=2,max=100)])
     password=PasswordField('password',validators=[DataRequired()])
     submit=SubmitField('submit')
     

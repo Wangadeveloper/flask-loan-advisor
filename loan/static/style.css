@@ -13,16 +13,34 @@ body{
     width: 100%;
 }
 
-.mid-section{
-    top: 0px;
+.mid-section {
+    top: 0;
     min-height: 41%;
     width: 100%;
+    display: flex;              /* center content vertically */
+    flex-direction: column;
     justify-content: center;
-    align-content: center;
     align-items: center;
     text-align: center;
-    background-color: brown;
+    padding: 40px 20px;         /* breathing room */
+    background-color: #f0f9f4;  /* soft mint green */
 }
+
+.mid-section h1 {
+    font-size: 2rem;            /* ~32px on desktop */
+    font-weight: 700;
+    color: #064635;             /* dark green heading */
+    margin-bottom: 20px;
+}
+
+.mid-section p {
+    font-size: 1.125rem;        /* ~18px, good readability */
+    line-height: 1.6;
+    max-width: 800px;
+    color: #333;                /* softer text color */
+    margin: 0 auto 15px;
+}
+
 
 .media{
     min-height: 200px;
