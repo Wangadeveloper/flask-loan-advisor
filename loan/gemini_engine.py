@@ -49,8 +49,8 @@ def get_model(model_name="gemini-1.5-flash"):
 def get_financial_advice(farm_data: str) -> str:
     try:
         prompt = f"""
-        You are an agricultural financial advisor.
-        Given this farm situation:
+        You are a financial advisor.
+        Given this bussiness situation:
         {farm_data}
 
         Provide simple, clear advice on:
