@@ -107,10 +107,9 @@ font-size: 20px;
 #here hr{
     min-height: 5px;
 }
-
-/* Stylish top bar */
+/* Navbar container */
 .we-bar {
-    background: linear-gradient(90deg, #007bff, #00b4d8); /* blue gradient */
+    background: linear-gradient(90deg, #007bff, #00b4d8);
     padding: 12px 20px;
     color: #fff;
     display: flex;
@@ -122,46 +121,79 @@ font-size: 20px;
     z-index: 1000;
 }
 
-/* Left links */
-.we-bar .nav-link {
-    margin-right: 20px;
+/* Menu button */
+.menu-btn {
+    background: none;
+    border: none;
     color: #fff;
-    text-decoration: none;
-    font-size: 16px;
+    font-size: 18px;
+    cursor: pointer;
     font-weight: 600;
-    transition: all 0.3s ease;
 }
 
-.we-bar .nav-link:hover {
-    color: #ffd166; /* gold highlight */
-    transform: translateY(-2px);
+/* Dropdown menu (hidden by default) */
+.menu-content {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    background: #fff;
+    color: #333;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    min-width: 160px;
+    padding: 10px 0;
 }
 
-/* Right-side authentication buttons */
+.menu-content a {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.menu-content a:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+/* Right side buttons */
 .btn-auth {
     display: inline-block;
-    padding: 8px 18px;
-    margin-left: 10px;
+    padding: 8px 16px;
+    margin-left: 8px;
     font-size: 15px;
     font-weight: 600;
     text-decoration: none;
     color: #fff;
-    background: #064635; /* deep green */
+    background: #064635;
     border-radius: 25px;
     transition: all 0.3s ease;
     box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
 
 .btn-auth:hover {
-    background: #046b45; /* lighter green on hover */
+    background: #046b45;
     transform: scale(1.05);
-    box-shadow: 0 6px 10px rgba(0,0,0,0.2);
 }
 
 .btn-signup {
-    background: #e63946; /* red for emphasis */
+    background: #e63946;
 }
 
 .btn-signup:hover {
     background: #ff4d5a;
+}
+
+/* Responsive: hide text links, show hamburger */
+@media (min-width: 769px) {
+    .menu-btn { display: none; }
+    .menu-content { display: flex !important; position: static; box-shadow: none; background: transparent; }
+    .menu-content a { color: #fff; padding: 0 15px; }
+    .menu-content a:hover { background: none; color: #ffd166; }
+}
+
+@media (max-width: 768px) {
+    .menu-content a { font-size: 16px; }
 }

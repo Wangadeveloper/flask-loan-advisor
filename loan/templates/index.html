@@ -8,16 +8,23 @@
 
 {% block body %}
 <div class="we-bar">
+    <!-- Left side: Logo + Hamburger -->
     <div class="left-links">
-        <a href="{{url_for('main.home')}}" class="nav-link">🏠 Home</a>
-        <a href="{{url_for('main.upload')}}" class="nav-link">📩 Contact</a>
-        <a href="#" class="nav-link">❓ Help</a>
+        <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+        <div class="menu-content" id="menu-content">
+            <a href="{{url_for('main.home')}}" class="nav-link">🏠 Home</a>
+            <a href="{{url_for('main.upload')}}" class="nav-link">📩 Contact</a>
+            <a href="#" class="nav-link">❓ Help</a>
+        </div>
     </div>
+
+    <!-- Right side: Sign in & Sign up always visible -->
     <div class="right-links">
         <a href="{{url_for('main.login')}}" class="btn-auth">🔑 Sign in</a>
         <a href="{{url_for('main.register')}}" class="btn-auth btn-signup">📝 Sign up</a>
     </div>
 </div>
+
 
 <div class="container">
     <div class="mid-section">

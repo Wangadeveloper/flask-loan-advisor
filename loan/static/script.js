@@ -1,11 +1,6 @@
-function toggleMenu(){
-    const menuContent=document.getElementById('menu-content');
-    if(menuContent.style.display=== 'block'){
-        menuContent.style.display= 'none';
 
-    }
-    else{
-        menuContent.style.display='block'
-
-    }
+function toggleMenu() {
+    const menu = document.getElementById("menu-content");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
 }
+
