@@ -1,6 +1,8 @@
+{% extends "base.html" %}
 {% block head %}
 {% block title %}{% endblock %}
 <link rel="stylesheet" href="{{url_for('static',filename='loan-risk-assessment.css')}}">
+
 <style>
 /* ✅ Loading overlay styles */
 #loadingOverlay {
@@ -21,8 +23,13 @@
 {% block body %}
 <div class="container">
     <h1>Loan Risk Assessment</h1>
+    
+    <!-- Loan Form -->
     <form action="" method="POST" id="loanForm">
         {{ form.hidden_tag() }}
+
+        <label>Preferred Language for the advice</label>
+        {{ form.language() }}
         
         <label>Desired Loan Amount (KES)</label>
         {{ form.loan_amount() }}
@@ -42,11 +49,18 @@
         <label>Preferred Repayment Period (Months)</label>
         {{ form.repayment_period() }}
 
-        <label>Preferred Language</label>
-        {{ form.language() }}
-
         {{ form.submit() }}
     </form>
+
+    <!-- ✅ Show download button only after PDF is ready -->
+    {% if advice_file %}
+        <div style="margin-top:20px;">
+            <a href="{{ url_for('static', filename='reports/' ~ advice_file) }}" 
+               class="btn btn-success" download>
+                ⬇️ Download Your Advice Report
+            </a>
+        </div>
+    {% endif %}
 </div>
 
 <!-- ✅ Loading Overlay -->
@@ -56,8 +70,11 @@
 
 <script>
     // Show loading overlay on form submit
-    document.getElementById("loanForm").addEventListener("submit", function() {
-        document.getElementById("loadingOverlay").style.display = "block";
-    });
+    const form = document.getElementById("loanForm");
+    if (form) {
+        form.addEventListener("submit", function() {
+            document.getElementById("loadingOverlay").style.display = "block";
+        });
+    }
 </script>
 {% endblock %}

@@ -14,7 +14,7 @@ body{
 }
 
 .mid-section {
-    top: 0;
+    top: 10px;
     min-height: 41%;
     width: 100%;
     display: flex;              /* center content vertically */
@@ -106,4 +106,37 @@ font-size: 20px;
 
 #here hr{
     min-height: 5px;
+}
+
+/* Authentication buttons */
+.btn-auth {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+    background: #064635; /* deep green */
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-auth:hover {
+    background: #046b45; /* lighter green on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+.btn-signup {
+    background: #e63946; /* red for emphasis */
+}
+
+.btn-signup:hover {
+    background: #ff4d5a;
+}
+
+.links{
+    padding: auto;
 }

@@ -16,6 +16,8 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # Use SQLite for simplicity
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # To suppress a warning
     app.config['SECRET_KEY'] = '8c568937f79e5cc394a108a28ae6093d'
+    REPORTS_DIR = os.path.join("loan", "static", "reports")
+    os.makedirs(REPORTS_DIR, exist_ok=True)
     # ### END ADDITION ###
 
     # Initialize extensions here

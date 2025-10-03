@@ -101,54 +101,53 @@ def profile():
     return render_template("profile.html", form=form)
 
 
+import uuid
+import os
+
 @main.route("/loan-risk-assessment", methods=["GET", "POST"])
 @login_required
 def loan_risk_assessment():
     form = LoanRiskAssessmentForm()
 
     if form.validate_on_submit():
-        # Build the query for Gemini (English version)
         query = f"""Give financial advice in English on what amount of
                     loan to apply in Kenya having a monthly
                     income of KES {form.monthly_income.data},
                     and a {form.business_type.data} business at a
                     {form.business_level.data} level with a repayment period
                     of {form.repayment_period.data} months.
-                    Based on this, recommend how best to invest the loan.
                     Business description: {form.business_desc.data}"""
 
-        # Route based on language selection
-        if form.language.data == "Swahili":
-            return redirect(url_for("main.loan_risk_assessment_sw",
-                                    income=form.monthly_income.data,
-                                    btype=form.business_type.data,
-                                    blevel=form.business_level.data,
-                                    repay=form.repayment_period.data,
-                                    desc=form.business_desc.data))
-
-        # Call Gemini for English advice
         eng_text = get_financial_advice(query)
 
-        pdf_output = generate_pdf(eng_text, title="Financial Advice Report (English)")
-        response = make_response(pdf_output.read())
-        response.headers["Content-Type"] = "application/pdf"
-        response.headers["Content-Disposition"] = 'inline; filename="financial_advice_en.pdf"'
-        return response
+        # ✅ Generate unique filename
+        filename = f"advice_{uuid.uuid4().hex}.pdf"
+        filepath = os.path.join(current_app.root_path, "static/reports", filename)
+
+        # ✅ Save PDF instead of streaming
+        with open(filepath, "wb") as f:
+            pdf_bytes = generate_pdf(eng_text, title="Financial Advice Report")
+            f.write(pdf_bytes.read())
+
+        # ✅ Pass filename to template so user can download
+        return render_template("loan-risk-assessment.html", form=form, advice_file=filename)
 
     return render_template("loan-risk-assessment.html", form=form)
 
 
+import uuid
+import os
+
 @main.route("/loan-risk-assessment-sw")
 @login_required
 def loan_risk_assessment_sw():
-    # Extract query params passed from redirect
     income = request.args.get("income")
     btype = request.args.get("btype")
     blevel = request.args.get("blevel")
     repay = request.args.get("repay")
     desc = request.args.get("desc")
 
-    # Build prompt in Swahili directly
+    # Build Kiswahili prompt
     query = f"""Nipe ushauri wa kifedha kwa Kiswahili kuhusu kiwango cha mkopo
                 ninaweza kuomba nchini Kenya nikizingatia kipato cha kila mwezi
                 cha KES {income}, biashara ya {btype} katika kiwango cha {blevel},
@@ -156,13 +155,22 @@ def loan_risk_assessment_sw():
                 Eleza jinsi ya kuwekeza mkopo huu ipasavyo.
                 Maelezo ya biashara: {desc}"""
 
+    # Call Gemini
     sw_text = get_financial_advice(query)
 
-    pdf_output = generate_pdf(sw_text, title="Ripoti ya Ushauri wa Kifedha (Kiswahili)")
-    response = make_response(pdf_output.read())
-    response.headers["Content-Type"] = "application/pdf"
-    response.headers["Content-Disposition"] = 'inline; filename="financial_advice_sw.pdf"'
-    return response
+    # ✅ Generate unique filename
+    filename = f"advice_sw_{uuid.uuid4().hex}.pdf"
+    reports_dir = os.path.join(current_app.root_path, "static/reports")
+    os.makedirs(reports_dir, exist_ok=True)  # ensure folder exists
+    filepath = os.path.join(reports_dir, filename)
+
+    # ✅ Save PDF
+    with open(filepath, "wb") as f:
+        pdf_bytes = generate_pdf(sw_text, title="Ripoti ya Ushauri wa Kifedha (Kiswahili)")
+        f.write(pdf_bytes.read())
+
+    # ✅ Pass file to template so download button shows
+    return render_template("loan-risk-assessment.html", form=LoanRiskAssessmentForm(), advice_file=filename)
 
 
 @main.route("/credit-risk-dashboard", methods=["GET"])
