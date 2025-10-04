@@ -215,7 +215,19 @@ body {
         display: none; 
     }
 
-    .menu-content {
+   
+    .menu-content a { 
+        color: #fff; 
+        padding: 0 15px;    
+        font-weight: 600;
+    }
+
+    .menu-content a:hover { 
+        background: none; 
+        color: #ffd166; 
+    }
+}
+ .menu-content {
     display: none;
     position: absolute;
     top: 100%;   /* sits directly below the navbar */
@@ -227,19 +239,6 @@ body {
     min-width: 180px;
     padding: 10px 0;
     z-index: 999;  /* keep it above other elements */
-}
-
-
-    .menu-content a { 
-        color: #fff; 
-        padding: 0 15px;    
-        font-weight: 600;
-    }
-
-    .menu-content a:hover { 
-        background: none; 
-        color: #ffd166; 
-    }
 }
 
 @media (max-width: 768px) {

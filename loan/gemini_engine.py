@@ -5,22 +5,27 @@ import google.generativeai as genai
 from fpdf import FPDF
 from flask import current_app
 
-def generate_pdf(content: str, title: str = "AI Advice") -> BytesIO:
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", style="B", size=16)
-    pdf.cell(0, 10, title, ln=True, align="C")
-    pdf.ln(10)
+from fpdf import FPDF, HTMLMixin
 
+class MyFPDF(FPDF, HTMLMixin):
+    pass
+
+def generate_pdf(content: str, title: str = "AI Advice") -> BytesIO:
+    pdf = MyFPDF()
+    pdf.add_page()
     pdf.set_font("Arial", size=12)
-    # Strip or replace emojis (non-ASCII chars)
-    cleaned_content = content.encode("ascii", "ignore").decode()
-    pdf.multi_cell(0, 8, cleaned_content)
+
+    # Convert markdown → HTML
+    html_content = md.markdown(content)
+
+    # Write as HTML (supports <b>, <i>, <h1>, <ul><li>)
+    pdf.write_html(html_content)
 
     pdf_output = BytesIO()
     pdf_output.write(pdf.output(dest="S").encode("latin1", errors="replace"))
     pdf_output.seek(0)
     return pdf_output
+
 
 
 
